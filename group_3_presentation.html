@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Group 3 OSINT Verifier — Presentation</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+body{font-family:'Inter',sans-serif;overflow:hidden;background:#0a0e17}
+.glow-text{background:linear-gradient(135deg,#818cf8,#c084fc,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.glass{background:rgba(255,255,255,.025);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.06);border-radius:18px}
+.badge{background:linear-gradient(135deg,#6366f1,#a855f7);border-radius:9999px;display:inline-block;white-space:nowrap}
+.pulse{animation:pulse-glow 2.5s ease-in-out infinite}
+@keyframes pulse-glow{0%,100%{box-shadow:0 0 20px rgba(99,102,241,.2)}50%{box-shadow:0 0 50px rgba(139,92,246,.5)}}
+.dot{width:10px;height:10px;border-radius:50%;background:#374151;transition:all .4s}
+.dot.active{background:#818cf8;transform:scale(1.4);box-shadow:0 0 12px rgba(129,140,248,.6)}
+.btn-glow:hover{box-shadow:0 0 40px rgba(99,102,241,.5);transform:translateY(-2px)}
+canvas{position:fixed;inset:0;z-index:-1}
+.slide-section{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100%;max-width:72rem;padding:0 1.5rem;transition:opacity .7s ease,transform .7s ease}
+.slide-inactive{opacity:0;pointer-events:none}
+.slide-active{opacity:1;pointer-events:auto}
+</style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+<canvas id="stars"></canvas>
+
+<section class="relative w-full h-screen overflow-hidden">
+
+  <!-- PROGRESS DOTS -->
+  <nav class="fixed top-6 left-1/2 -translate-x-1/2 flex gap-3 z-50" id="dots"></nav>
+
+  <!-- ==================== SLIDE 1 — PROBLEM ==================== -->
+  <!-- Presenter Script: "Fact checking inside group chats. When rumors start spreading about important things like water plants breaking down, people talk about it in chat apps first. We built JarvisClaw so users can check if a rumor is real or fake instantly without leaving the chat." -->
+  <div id="s1" class="slide-section slide-active flex flex-col justify-center min-h-[75vh]">
+    <span class="badge text-white text-xs font-bold px-3 py-1 inline-block w-fit mb-6">SLIDE 1 / 5</span>
+    <h1 class="text-5xl md:text-7xl font-black text-white leading-tight mb-4">Fact Checking<br><span class="glow-text">Inside Group Chats</span></h1>
+    <p class="text-gray-400 text-lg md:text-xl max-w-2xl mb-8">When rumors start spreading about important things like water plants breaking down, people talk about it in chat apps first. We built JarvisClaw so users can check if a rumor is real or fake instantly without leaving the chat.</p>
+    <div class="glass p-6 max-w-xl">
+      <p class="text-gray-300 text-sm md:text-base"><span class="text-indigo-400 font-bold">How it works</span> — Someone pastes a suspicious claim. The bot pulls out the true facts, checks for warning signs, and gives a trust score. All from a simple <code class="bg-indigo-900/40 px-1 rounded text-xs text-indigo-300">!factcheck</code> command in the chat.</p>
+    </div>
+    <!-- Presenter: [name] -->
+  </div>
+
+  <!-- ==================== SLIDE 2 — SMART ROUTING ==================== -->
+  <!-- Presenter Script: "Slide 2 shows our dual-mode architecture. The bot operates in Command Mode — clinical, forensic, no jokes — triggered by !analyze or !factcheck. In Casual Chat Mode, it matches the team's energy while enforcing hard safety boundaries. Two personalities, one pipeline." -->
+  <div id="s2" class="slide-section slide-inactive flex flex-col justify-center min-h-[75vh]">
+    <span class="badge text-white text-xs font-bold px-3 py-1 inline-block w-fit mb-6">SLIDE 2 / 5</span>
+    <h2 class="text-4xl md:text-6xl font-black text-white leading-tight mb-4">Smart Routing<br><span class="glow-text">Dual-Mode Architecture</span></h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="glass p-6 hover:border-indigo-500/30 transition-colors">
+        <div class="text-3xl mb-3">&#9889;</div>
+        <h3 class="text-white font-bold text-xl mb-2">Command Mode</h3>
+        <p class="text-gray-400 text-sm">Triggered by <code class="bg-indigo-900/40 px-2 py-0.5 rounded text-indigo-300 text-xs">!analyze</code> <code class="bg-indigo-900/40 px-2 py-0.5 rounded text-indigo-300 text-xs">!factcheck</code>. Runs claim decomposition, pattern analysis, confidence scoring. Output is clinical, structured, forensic.</p>
+      </div>
+      <div class="glass p-6 hover:border-violet-500/30 transition-colors">
+        <div class="text-3xl mb-3">&#128172;</div>
+        <h3 class="text-white font-bold text-xl mb-2">Casual Chat Mode</h3>
+        <p class="text-gray-400 text-sm">Messages without command prefixes route to the personality layer — witty, adaptive, and conversational.</p>
+      </div>
+    </div>
+    <!-- Presenter: [name] -->
+  </div>
+
+  <!-- ==================== SLIDE 3 — WHAT THE BOT DOES ==================== -->
+  <!-- Presenter Script: "Here's what the bot actually does. First, quick rumor checking: a fake Telegram post claimed a Tuas Desalination pump failed. The bot checked live utility feeds and news sources and proved it was false in under 5 seconds. Second, for deep dives, it creates a full 6-page PDF report automatically. Inside the PDF: an attack summary, a timeline, and facts from trusted groups like MITRE ATT&CK, ESET, and Dragos, plus classic defense concepts." -->
+  <div id="s3" class="slide-section slide-inactive flex flex-col justify-center min-h-[75vh]">
+    <span class="badge text-white text-xs font-bold px-3 py-1 inline-block w-fit mb-6">SLIDE 3 / 5</span>
+    <h2 class="text-4xl md:text-6xl font-black text-white leading-tight mb-4">What the Bot Does<br><span class="glow-text">For Analysts</span></h2>
+    <div class="grid md:grid-cols-3 gap-4 mb-6">
+      <div class="glass p-5">
+        <div class="text-2xl mb-3">&#9889;</div>
+        <h3 class="text-white font-bold text-base mb-2">Quick Rumor Checking</h3>
+        <p class="text-gray-400 text-sm">When a fake Telegram post claimed a Tuas Desalination pump failed, the bot checked live utility feeds and news sources to prove it was false in under 5 seconds.</p>
+      </div>
+      <div class="glass p-5">
+        <div class="text-2xl mb-3">&#128196;</div>
+        <h3 class="text-white font-bold text-base mb-2">Full PDF Report</h3>
+        <p class="text-gray-400 text-sm">For deep-dives, the bot does not just summarise text — it automatically creates a clean 6-page PDF document ready for sharing.</p>
+      </div>
+      <div class="glass p-5">
+        <div class="text-2xl mb-3">&#128269;</div>
+        <h3 class="text-white font-bold text-base mb-2">Inside the PDF</h3>
+        <p class="text-gray-400 text-sm">A simple summary of the attack, a timeline of causes and effects, and facts from trusted security groups like MITRE ATT&amp;CK, ESET, and Dragos. It also uses classic defense ideas to explain the strategy behind the attack.</p>
+      </div>
+    </div>
+    <a href="https://dashboard.group3.ydsp.tnkr.be/" target="_blank" rel="noopener"
+       class="inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-white text-lg
+              bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600
+              pulse btn-glow transition-all duration-300 w-fit">
+      <span class="text-2xl">&#128200;</span> Our Live Metrics Dashboard <span class="text-xl">&rarr;</span>
+    </a>
+    <!-- Presenter: [name] -->
+  </div>
+
+  <!-- ==================== SLIDE 4 — SECURITY RESILIENCE ==================== -->
+  <!-- Presenter Script: "We ran a 6-turn hacking test to see if a user could force the bot to bypass its security rules or leak admin configuration files. The bot successfully blocked all 6 manipulation attempts, refused to return restricted system data, and issued standard access-denied security blocks without a single system crash." -->
+  <div id="s4" class="slide-section slide-inactive flex flex-col justify-center min-h-[75vh]">
+    <span class="badge text-white text-xs font-bold px-3 py-1 inline-block w-fit mb-6">SLIDE 4 / 5</span>
+    <h2 class="text-4xl md:text-6xl font-black text-white leading-tight mb-4">Security Stress Test<br><span class="glow-text">Here's What Happened</span></h2>
+    <div class="glass p-6 mb-4 max-w-2xl">
+      <p class="text-gray-300 text-base leading-relaxed">We ran a 6-turn hacking test to see if a user could force the bot to bypass its security rules or leak admin configuration files. The bot successfully blocked all 6 manipulation attempts, refused to return restricted system data, and issued standard access-denied security blocks without a single system crash.</p>
+    </div>
+    <!-- Presenter: [name] -->
+  </div>
+
+  <!-- ==================== SLIDE 5 — ROADMAP ==================== -->
+  <!-- Presenter Script: "What we built: a working assistant connected to Discord and Telegram that helps analysts triage rumors. Next step: run user text commands inside a separate sandbox so hackers cannot use a text message to touch our main defense server files." -->
+  <div id="s5" class="slide-section slide-inactive flex flex-col justify-center min-h-[75vh]">
+    <span class="badge text-white text-xs font-bold px-3 py-1 inline-block w-fit mb-6">SLIDE 5 / 5</span>
+    <h2 class="text-4xl md:text-6xl font-black text-white leading-tight mb-4">Roadmap<br><span class="glow-text">What We Built & Next</span></h2>
+    <div class="glass p-6 space-y-5 max-w-2xl">
+      <div class="flex items-start gap-4"><span class="inline-block text-white text-xs font-bold px-3 py-1 rounded-full shrink-0 mt-0.5" style="background:linear-gradient(135deg,#22c55e,#16a34a)">Q1 &#10003;</span><div><h3 class="text-white font-bold">What We Built</h3><p class="text-gray-400 text-sm">A working assistant connected to Discord and Telegram that helps analysts triage infrastructure rumors in real time.</p></div></div>
+      <div class="flex items-start gap-4"><span class="inline-block text-white text-xs font-bold px-3 py-1 rounded-full shrink-0 mt-0.5" style="background:linear-gradient(135deg,#6366f1,#a855f7)">Q2</span><div><h3 class="text-white font-bold">Next Step</h3><p class="text-gray-400 text-sm">Run user text commands inside a separate, safe sandbox window so a hacker can never use a text message to touch our main defense server files.</p></div></div>
+    </div>
+    <p class="text-gray-500 text-sm mt-6">Group 3 OSINT Verifier &middot; June 2026</p>
+    <!-- Presenter: [name] -->
+  </div>
+
+  <!-- NAVIGATION -->
+  <div class="fixed bottom-8 left-1/2 -translate-x-1/2 flex gap-4 z-50 items-center">
+    <button id="prev" onclick="go(-1)" disabled class="glass px-5 py-2.5 text-gray-400 hover:text-white transition-colors disabled:opacity-30 disabled:cursor-default">&larr; Prev</button>
+    <span id="counter" class="text-gray-500 text-sm tabular-nums">1 / 5</span>
+    <button id="next" onclick="go(1)" class="glass px-5 py-2.5 text-gray-400 hover:text-white transition-colors">&rarr; Next</button>
+  </div>
+
+</section>
+
+<script>
+var slides = ['s1','s2','s3','s4','s5'];
+var cur = 0;
+
+function render() {
+  var dots = document.getElementById('dots');
+  dots.innerHTML = slides.map(function(_,i){ return '<div class="dot'+(i===cur?' active':'')+'"></div>'; }).join('');
+  document.getElementById('prev').disabled = cur === 0;
+  document.getElementById('counter').textContent = (cur+1) + ' / ' + slides.length;
+}
+
+function go(dir) {
+  var next = cur + dir;
+  if (next < 0 || next >= slides.length) return;
+  var leaving = document.getElementById(slides[cur]);
+  var entering = document.getElementById(slides[next]);
+  leaving.className = leaving.className.replace('slide-active','slide-inactive');
+  entering.className = entering.className.replace('slide-inactive','slide-active');
+  cur = next; render();
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+});
+
+// Starfield
+var c = document.getElementById('stars'), ctx = c.getContext('2d');
+var pts = [];
+function resize(){ c.width=innerWidth; c.height=innerHeight }
+window.addEventListener('resize',resize); resize();
+for(var i=0;i<60;i++) pts.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2+.5,s:Math.random()*3+1,o:Math.random()*.4+.1});
+(function loop(){
+  ctx.clearRect(0,0,c.width,c.height);
+  pts.forEach(function(p){
+    p.y-=p.s*.3; if(p.y<0){p.y=c.height;p.x=Math.random()*c.width}
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(129,140,248,'+p.o+')';ctx.fill()
+  });requestAnimationFrame(loop)
+})();
+
+render();
+</script>
+</body>
+</html>
